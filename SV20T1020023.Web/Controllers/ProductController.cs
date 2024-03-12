@@ -1,30 +1,57 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SV20T1020023.BusinessLayers;
 using SV20T1020023.DomainModels;
+using SV20T1020023.Web.Models;
 
 namespace SV20T1020023.Web.Controllers
 {
     public class ProductController : Controller
     {
         private const int PAGE_SIZE = 20;
-        public IActionResult Index(int page = 1, string searchValue = "", int categoryID = 0, int supplierID = 0)
+        private const string PRODUCT_SEARCH = "product_search"; //Tên biến dùng dể lưu trong session
+
+        public IActionResult Index()
+        {
+            //Lấy đầu vào tìm kiếm hiện đang lưu lại trong session
+            ProductSearchInput? input = ApplicationContext.GetSessionData<ProductSearchInput>(PRODUCT_SEARCH);
+
+            //Trường hợp trong session chưa có điều kiện thì tạo ra điều kiện mới
+            if (input == null)
+            {
+                input = new ProductSearchInput()
+                {
+                    Page = 1,
+                    PageSize = PAGE_SIZE,
+                    SearchValue = "",
+                    CategoryID = 0,
+                    SupplierID = 0
+                };
+            }
+
+            return View(input);
+        }
+
+        public IActionResult Search(ProductSearchInput input)
         {
             int rowCount = 0;
-            var data = ProductDataService.ListProducts(out rowCount, page, PAGE_SIZE, searchValue ?? "", categoryID, supplierID);
-
-            var model = new Models.ProductSearchResult()
+            var data = ProductDataService.ListProducts(out rowCount, input.Page, input.PageSize, input.SearchValue ?? "", input.CategoryID, input.SupplierID);
+            var model = new ProductSearchResult()
             {
-                Page = page,
-                PageSize = PAGE_SIZE,
-                SearchValue = searchValue ?? "",
-                CategoryID = categoryID,
-                SupplierID = supplierID,
+                Page = input.Page,
+                PageSize = input.PageSize,
+                SearchValue = input.SearchValue ?? "",
+                CategoryID = input.CategoryID,
+                SupplierID = input.SupplierID,
                 RowCount = rowCount,
                 Data = data
             };
 
+            //Lưu lại điều kiện tìm kiếm vào trong session
+            ApplicationContext.SetSessionData(PRODUCT_SEARCH, input);
+
             return View(model);
         }
+
         public IActionResult Create()
         {
             ViewBag.Title = "Bổ sung mặt hàng";

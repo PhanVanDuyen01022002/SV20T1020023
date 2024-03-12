@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SV20T1020023.BusinessLayers;
 using SV20T1020023.DomainModels;
+using SV20T1020023.Web.Models;
 using System.Drawing.Printing;
 
 namespace SV20T1020023.Web.Controllers
@@ -8,20 +9,42 @@ namespace SV20T1020023.Web.Controllers
     public class CategoryController : Controller
     {
         private const int PAGE_SIZE = 20;
+        private const string CATEGORY_SEARCH = "category_search"; //Tên biến dùng dể lưu trong session
+
         //TODO: chua hoan chinh vi chua them o view
-        public IActionResult Index(int page = 1, string searchValue = "")
+        public IActionResult Index()
+        {
+            //Lấy đầu vào tìm kiếm hiện đang lưu lại trong session
+            PaginationSearchInput? input = ApplicationContext.GetSessionData<PaginationSearchInput>(CATEGORY_SEARCH);
+
+            //Trường hợp trong session chưa có điều kiện thì tạo ra điều kiện mới
+            if (input == null)
+            {
+                input = new PaginationSearchInput()
+                {
+                    Page = 1,
+                    PageSize = PAGE_SIZE,
+                    SearchValue = ""
+                };
+            }
+
+            return View(input);
+        }
+        public IActionResult Search(PaginationSearchInput input)
         {
             int rowCount = 0;
-            var data = CommonDataService.ListOfCategorys(out rowCount, page, PAGE_SIZE, searchValue ?? "");
-
-            var model = new Models.CategorySearchResult()
+            var data = CommonDataService.ListOfCategorys(out rowCount, input.Page, input.PageSize, input.SearchValue ?? "");
+            var model = new CategorySearchResult()
             {
-                Page = page,
-                PageSize = PAGE_SIZE,
-                SearchValue = searchValue ?? "",
+                Page = input.Page,
+                PageSize = input.PageSize,
+                SearchValue = input.SearchValue ?? "",
                 RowCount = rowCount,
                 Data = data
             };
+
+            //Lưu lại điều kiện tìm kiếm vào trong session
+            ApplicationContext.SetSessionData(CATEGORY_SEARCH, input);
 
             return View(model);
         }

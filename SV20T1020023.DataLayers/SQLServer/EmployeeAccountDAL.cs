@@ -9,7 +9,7 @@ namespace SV20T1020023.DataLayers.SQLServer
         {
         }
 
-        public UserAccount Authorize(string userName, string password)
+        public UserAccount? Authorize(string userName, string password)
         {
             UserAccount data;
             using (var cn = OpenConnection())

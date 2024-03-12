@@ -3,7 +3,7 @@ namespace SV20T1020023.BusinessLayers
 {
     public class UserAccountService
     {
-        public static UserAccount Authorize(string userName, string password)
+        public static UserAccount? Authorize(string userName, string password)
         {
             //TODO: Kiểm tra thông tin đăng nhập của Employee
             UserAccount data = null;

@@ -1,25 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SV20T1020023.BusinessLayers;
 using SV20T1020023.DomainModels;
+using SV20T1020023.Web.Models;
 
 namespace SV20T1020023.Web.Controllers
 {
     public class SupplierController : Controller
     {
         private const int PAGE_SIZE = 20;
-        public IActionResult Index(int page = 1, string searchValue = "")
+        private const string SUPPLIER_SEARCH = "supplier_search"; //Tên biến dùng dể lưu trong session
+
+        public IActionResult Index()
+        {
+            //Lấy đầu vào tìm kiếm hiện đang lưu lại trong session
+            PaginationSearchInput? input = ApplicationContext.GetSessionData<PaginationSearchInput>(SUPPLIER_SEARCH);
+
+            //Trường hợp trong session chưa có điều kiện thì tạo ra điều kiện mới
+            if (input == null)
+            {
+                input = new PaginationSearchInput()
+                {
+                    Page = 1,
+                    PageSize = PAGE_SIZE,
+                    SearchValue = ""
+                };
+            }
+
+            return View(input);
+        }
+        public IActionResult Search(PaginationSearchInput input)
         {
             int rowCount = 0;
-            var data = CommonDataService.ListOfSuppliers(out rowCount, page, PAGE_SIZE, searchValue ?? "");
-
-            var model = new Models.SupplierSearchResult()
+            var data = CommonDataService.ListOfSuppliers(out rowCount, input.Page, input.PageSize, input.SearchValue ?? "");
+            var model = new SupplierSearchResult()
             {
-                Page = page,
-                PageSize = PAGE_SIZE,
-                SearchValue = searchValue ?? "",
+                Page = input.Page,
+                PageSize = input.PageSize,
+                SearchValue = input.SearchValue ?? "",
                 RowCount = rowCount,
                 Data = data
             };
+
+            //Lưu lại điều kiện tìm kiếm vào trong session
+            ApplicationContext.SetSessionData(SUPPLIER_SEARCH, input);
 
             return View(model);
         }
