@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SV20T1020023.BusinessLayers;
 using SV20T1020023.DomainModels;
 using SV20T1020023.Web.Models;
@@ -6,6 +7,7 @@ using System.Drawing.Printing;
 
 namespace SV20T1020023.Web.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private const int PAGE_SIZE = 20;

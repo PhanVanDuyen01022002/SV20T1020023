@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SV20T1020023.Web.Controllers
 {
+    [Authorize]
+
     public class OrderController : Controller
     {
         public IActionResult Index()
