@@ -14,7 +14,7 @@ namespace SV20T1020023.DataLayers.SQLServer
             UserAccount data;
             using (var cn = OpenConnection())
             {
-                var sql = @"select EmployeeID as UserID, Email as UserName, FullName, Email, Photo, Password 
+                var sql = @"select EmployeeID as UserID, Email as UserName, FullName, Email, Photo, Password, RoleNames 
                            from Employees where Email=@Email AND Password=@Password";
                 var parameters = new
                 {

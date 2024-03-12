@@ -6,7 +6,7 @@ using SV20T1020023.Web.Models;
 
 namespace SV20T1020023.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = $"{WebUserRoles.Administrator},{WebUserRoles.Employee}")]
 
     public class SupplierController : Controller
     {

@@ -20,6 +20,7 @@ namespace SV20T1020023.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string username = "", string password = "")
         {
             ViewBag.Username = username;
@@ -46,7 +47,7 @@ namespace SV20T1020023.Web.Controllers
                 Photo = userAccount.Photo,
                 ClientIP = HttpContext.Session.Id,
                 AdditionalData = "",
-                Roles = new List<string> { WebUserRoles.Employee}
+                Roles = userAccount.RoleNames.Split(',').ToList(),
             };
             //Thiết lập phiên đăng nhập cho 
             await HttpContext.SignInAsync(userData.CreatePrincipal());

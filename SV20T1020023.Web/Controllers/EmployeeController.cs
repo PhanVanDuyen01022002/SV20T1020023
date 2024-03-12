@@ -5,7 +5,7 @@ using SV20T1020023.DomainModels;
 
 namespace SV20T1020023.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = $"{WebUserRoles.Administrator}")]
 
     public class EmployeeController : Controller
     {

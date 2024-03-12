@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SV20T1020023.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = $"{WebUserRoles.Employee}")]
 
     public class OrderController : Controller
     {

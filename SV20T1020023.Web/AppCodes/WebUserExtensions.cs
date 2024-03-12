@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace SV20T1020023.Web.AppCodes
+namespace SV20T1020023.Web
 {
     /// <summary>
     /// Extension các phương thức cho các đối tượng liên quan đến xác thực tài khoản người dùng
