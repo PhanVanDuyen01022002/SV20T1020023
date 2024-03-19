@@ -13,7 +13,6 @@ namespace SV20T1020023.Web.Controllers
         private const int PAGE_SIZE = 20;
         private const string CATEGORY_SEARCH = "category_search"; //Tên biến dùng dể lưu trong session
 
-        //TODO: chua hoan chinh vi chua them o view
         public IActionResult Index()
         {
             //Lấy đầu vào tìm kiếm hiện đang lưu lại trong session

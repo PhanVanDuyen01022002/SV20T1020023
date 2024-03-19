@@ -8,6 +8,7 @@ using System.Drawing.Printing;
 namespace SV20T1020023.Web.Controllers
 {
     [Authorize(Roles = $"{WebUserRoles.Employee}")]
+
     public class CustomerController : Controller
     {
         private const int PAGE_SIZE = 20;

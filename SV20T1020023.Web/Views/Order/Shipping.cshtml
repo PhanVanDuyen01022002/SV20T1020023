@@ -31,3 +31,29 @@
         </form>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#formShipping').submit(function (e) {
+            e.preventDefault();
+            var url = $(this).prop("action");
+            var method = $(this).prop("method");
+            var postData = $(this).serializeArray();
+            $.ajax({
+                url: url,
+                type: method,
+                data: postData,
+                error: function () {
+                    alert("Your request is not valid!");
+                },
+                success: function (data) {
+                    if (data !== "") {
+                        $("#message").html(data);
+                    } else {
+                        location.reload();
+                    }
+                }
+            });
+            return;
+        });
+    });
+</script>
