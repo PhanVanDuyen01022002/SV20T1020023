@@ -7,7 +7,7 @@
     <div class="box-body">
         <!--Form tim kiem: Nhap vao-->
         <form id="formSearch" action="~/Product/Search" method="get" data-container="#searchResult">
-            <div class="row">
+            <div class="row container-fluid">
                 <input type="hidden" name="@nameof(Model.PageSize)" value="@Model.PageSize"/>
 
                 <div class="col-sm-3">
@@ -48,14 +48,14 @@
                         }
                     </select>
                 </div>
-                <div class=" col-sm-6 input-group">
+                <div class="col-sm-6 input-group">
                     <input name="@nameof(Model.SearchValue)" type="text" class="form-control" 
                         placeholder="Nhập tên mặt hàng cần tìm" value="@Model.SearchValue">
                     <div class="input-group-btn">
                         <button class="btn btn-info" type="submit">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
-                        <a href="~/Product/Create" class="btn btn-primary" style="margin-left:5px">
+                        <a href="~/Product/Create" class="btn btn-primary" style="margin-left=5px">
                             <i class="fa fa-plus"></i> Bổ sung
                         </a>
                     </div>

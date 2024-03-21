@@ -42,6 +42,11 @@ namespace SV20T1020023.BusinessLayers
             return supplierDB.List(page, pageSize, searchValue).ToList();
 
         }
+        public static List<Supplier> ListOfSuppliers(string searchValue)
+        {
+            return supplierDB.List(1, 0, searchValue).ToList();
+        }
+
         /// <summary>
         /// Lấy thông tin của 1 Nhà cung cấp theo mã Nhà cung cấp
         /// </summary>
@@ -104,6 +109,10 @@ namespace SV20T1020023.BusinessLayers
         {
             rowCount = customerDB.Count(searchValue);
             return customerDB.List(page, pageSize, searchValue).ToList();
+        }
+        public static List<Customer> ListOfCustomers()
+        {
+            return customerDB.List().ToList();
         }
         /// <summary>
         /// Lấy thông tin của 1 khách hàng theo mã khách hàng
@@ -271,6 +280,12 @@ namespace SV20T1020023.BusinessLayers
         {
             rowCount = categoryDB.Count(searchValue);
             return categoryDB.List(page, pageSize, searchValue).ToList();
+
+        }
+
+        public static List<Category> ListOfCategorys(string searchValue)
+        {
+            return categoryDB.List(1, 0, searchValue).ToList();
 
         }
         /// <summary>

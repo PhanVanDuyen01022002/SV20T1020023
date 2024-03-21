@@ -37,7 +37,7 @@ namespace SV20T1020023.Web.Controllers
                 return View();
             }
 
-            //Đăng nhập thành công, tảo dữ liệu để lưu thông tin đăng nhập
+            //Đăng nhập thành công, tạo dữ liệu để lưu thông tin đăng nhập
             var userData = new WebUserData()
             {
                 UserId = userAccount.UserID,
@@ -60,6 +60,62 @@ namespace SV20T1020023.Web.Controllers
             HttpContext.Session.Clear();
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
+        }
+
+        public IActionResult ChangePassWord()
+        {
+            return View("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassWord(UserAccount data)
+        {
+            var userData = new WebUserData()
+            {
+                UserName = data.UserName,
+                DisplayName = data.FullName,
+                Email = data.Email,
+                Photo = data.Photo,
+                Roles = data.RoleNames.Split(',').ToList()
+            };
+            await HttpContext.SignInAsync(userData.CreatePrincipal());
+
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult SavePassWord(string userName, string oldPassword, string newPassword, string confirmNewPassword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(oldPassword) || string.IsNullOrWhiteSpace(newPassword) || string.IsNullOrWhiteSpace(confirmNewPassword))
+                    ModelState.AddModelError("ChangePassFailed", "Điền đầy đủ để đổi mật khẩu");
+                if (confirmNewPassword == newPassword)
+                {
+                    var userAccount = UserAccountService.ChangePassword(userName, oldPassword, newPassword);
+                    if (!userAccount)
+                    {
+                        ModelState.AddModelError("oldPassword", "Mật khẩu cũ không đúng");
+
+                    }
+                    else return RedirectToAction("Index", "Home");
+                }
+                else
+                    ModelState.AddModelError("ChangePassFailed", "Xác nhận mật khẩu không hợp lệ");
+
+                return View("Index");
+            }
+            catch
+            {
+                ModelState.AddModelError("ChangePassFailed", "Đổi mật khẩu không thành công");
+                return View("Index");
+            }
+
+        }
+        public IActionResult AccessDenined()
+        {
+            return View("MessageError");
         }
     }
 }

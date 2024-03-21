@@ -15,17 +15,20 @@ namespace SV20T1020023.DataLayers.SQLServer
             int id = 0;
             using (var connection = OpenConnection())
             {
-                var sql = @"insert into Orders(CustomerId, OrderTime, DeliveryProvince, DeliveryAddress, EmployeeID, Status)
-                            values(@CustomerID, getdate(), @DeliveryProvince, @DeliveryAddress, @EmployeeID, @Status);
+                var sql = @"insert into Orders(CustomerId,OrderTime, DeliveryProvince, DeliveryAddress,EmployeeID, Status) 
+                            values(@CustomerID, getdate(),@DeliveryProvince,@DeliveryAddress,@EmployeeID, @Status);                        
                             select @@identity";
+
                 var parameters = new
                 {
                     CustomerID = data.CustomerID,
-                    DeliveryProvince = data.DeliveryProvince ?? "",
-                    DeliveryAddress = data.DeliveryAddress ?? "",
+                    OrderTime = data.OrderTime,
+                    DeliveryProvince = data.DeliveryProvince,
+                    DeliveryAddress = data.DeliveryAddress,
                     EmployeeID = data.EmployeeID,
-                    Status = data.Status,
+                    Status = Constants.ORDER_INIT,
                 };
+                // Thêm đơn hàng vào cơ sở dữ liệu và lấy ID của đơn hàng vừa thêm
                 id = connection.ExecuteScalar<int>(sql: sql, param: parameters, commandType: System.Data.CommandType.Text);
                 connection.Close();
             }
