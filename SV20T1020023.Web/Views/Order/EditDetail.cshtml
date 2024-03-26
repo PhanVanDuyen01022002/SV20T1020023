@@ -71,8 +71,9 @@
 
 <script>
     $(document).ready(function () {
-        $(".formEditDetail").submit(function (e) {
+        $('#formEditDetail').submit(function (e) {
             e.preventDefault();
+
             var url = $(this).prop("action");
             var method = $(this).prop("method");
             var postData = $(this).serializeArray();
@@ -87,13 +88,14 @@
                 success: function (data) {
                     if (data !== "") {
                         $("#message").html(data);
-                    } else {
+                    }
+                    else {
                         location.reload();
                     }
                 }
             });
             return;
         });
-    })
+    });
 </script>
 

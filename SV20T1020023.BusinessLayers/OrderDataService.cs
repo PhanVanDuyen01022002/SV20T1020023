@@ -149,7 +149,6 @@ namespace SV20T1020023.BusinessLayers
             if (data.Status == Constants.ORDER_INIT
             || data.Status == Constants.ORDER_CANCEL
             || data.Status == Constants.ORDER_REJECTED)
-
                 return orderDB.Delete(orderID);
             return false;
         }
@@ -195,6 +194,18 @@ namespace SV20T1020023.BusinessLayers
             if (data.Status == Constants.ORDER_INIT || data.Status == Constants.ORDER_ACCEPTED)
             {
                 return orderDB.DeleteDetail(orderID, productID);
+            }
+            return false;
+        }
+
+        public static bool SaveAddress(int orderID, string deliveryProvince, string deliveryAddress)
+        {
+            Order? data = orderDB.Get(orderID);
+            if (data == null)
+                return false;
+            if (data.Status == Constants.ORDER_INIT || data.Status == Constants.ORDER_ACCEPTED)
+            {
+                return orderDB.SaveAddress(orderID,deliveryProvince, deliveryAddress);
             }
             return false;
         }

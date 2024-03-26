@@ -163,12 +163,13 @@ namespace SV20T1020023.Web.Controllers
             ApplicationContext.SetSessionData(PRODUCT_SEARCH, input);
             return View(model);
         }
-
+        [HttpGet]
         public IActionResult EditDetail(int id = 0, int productId = 0)
         {
             var model = OrderDataService.GetOrderDetail(id, productId);
             return View(model);
         }
+        [HttpPost]
         public IActionResult UpdateDetail(int orderID, int productId, int quantity, decimal salePrice)
         {
             if (quantity <= 0)
@@ -227,7 +228,6 @@ namespace SV20T1020023.Web.Controllers
             bool result = OrderDataService.ShipOrder(id, shipperID);
             if (!result)
                 return Json("Đơn hàng không cho phép chuyển cho người giao hàng");
-
             return Json(""); // Trả về chuỗi rỗng nếu không có lỗi
         }
 
@@ -299,6 +299,24 @@ namespace SV20T1020023.Web.Controllers
 
             ClearCart();
             return Json(orderID);
+        }
+
+        [HttpGet]
+        public IActionResult Address(int id = 0)
+        {
+            ViewBag.OrderID = id;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Address(int id = 0, string deliveryProvince = "", string deliveryAddress = "")
+        {
+            if (string.IsNullOrEmpty(deliveryProvince) || string.IsNullOrEmpty(deliveryAddress))
+                return Json("Vui lòng nhập đầy đủ thông tin");
+            bool result = OrderDataService.SaveAddress(id, deliveryProvince, deliveryAddress);
+            if (!result)
+                return Json("Đơn hàng không cho phép chuyển cho người giao hàng");
+            return Json("");
         }
     }
 }

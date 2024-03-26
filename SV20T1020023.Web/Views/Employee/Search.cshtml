@@ -22,10 +22,10 @@
                     </div>
                 </div>
 
-                <div class="box-body">
+                <div class="box-body" style="overflow: hidden; margin-top: 10px">
                     <div class="row">
                         <div class="col-sm-4">
-                            <img class="profile-user-img img-responsive img-bordered" src="~/images/employees/@item.Photo">
+                                <img class="profile-user-img img-responsive img-bordered" style="height: 150px; object-fit: cover" src="~/images/employees/@item.Photo">
                         </div>
                         <div class="col-sm-8">
                             <ul class="list-group list-group-unbordered">
@@ -36,7 +36,8 @@
                                     <i class="fa fa-phone"></i> @item.Phone
                                 </li>
                                 <li class="list-group-item">
-                                    <i class="fa fa-envelope"></i> @item.Email
+                                    <i class="fa fa-envelope" style="display: inline-block; vertical-align: middle;"></i> 
+                                    <span style="display: inline-block; vertical-align: middle; max-width: calc(100% - 20px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">@item.Email</span>
                                 </li>
                             </ul>
                         </div>

@@ -170,6 +170,11 @@ namespace SV20T1020023.BusinessLayers
             return shipperDB.List(page, pageSize, searchValue).ToList();
 
         }
+        public static List<Shipper> ListOfShippers()
+        {
+            return shipperDB.List().ToList();
+
+        }
         /// <summary>
         /// Lấy thông tin của 1 Shipper theo mã Shipper
         /// </summary>

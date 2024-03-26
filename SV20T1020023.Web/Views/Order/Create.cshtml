@@ -52,10 +52,10 @@
                     <div class="col-sm-10">
                         <select class="form-control" name="deliveryProvince">
                             <option value="">-- Chọn tỉnh/thành --</option>
-                                        @foreach (var item in SV20T1020023.BusinessLayers.CommonDataService.ListOfProvinces())
-                                        {
+                                @foreach (var item in SV20T1020023.BusinessLayers.CommonDataService.ListOfProvinces())
+                                {
                                     <option value="@item.ProvinceName">@item.ProvinceName</option>
-                                        }
+                                }
                         </select>
                     </div>
                 </div>

@@ -7,9 +7,10 @@
     <div class="box-body">
         <!--Form tim kiem: Nhap vao-->
         <form id="formSearch" action="~/Product/Search" method="get" data-container="#searchResult">
-            <div class="row container-fluid">
-                <input type="hidden" name="@nameof(Model.PageSize)" value="@Model.PageSize"/>
 
+            <div class="row">
+                <input type="hidden" name="@nameof(Model.PageSize)" value="@Model.PageSize"/>
+                
                 <div class="col-sm-3">
                     <select class="form-control" name="@nameof(Model.CategoryID)">
                         <option value="">--Loại hàng--</option>
@@ -47,15 +48,22 @@
                             }
                         }
                     </select>
+                </div>                
+                <div class="col-sm-5">
+                        <div class="input-group">
+                            <input type="text" name="@nameof(Model.SearchValue)"
+                                   class="form-control"
+                                   placeholder="Tìm kiếm theo tên khách hàng hoặc tên người giao hàng" value="@Model.SearchValue">
+                            <span class="input-group-btn">
+                                <button type="submit" id="search-btn" class="btn btn-flat btn-info">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
                 </div>
-                <div class="col-sm-6 input-group">
-                    <input name="@nameof(Model.SearchValue)" type="text" class="form-control" 
-                        placeholder="Nhập tên mặt hàng cần tìm" value="@Model.SearchValue">
-                    <div class="input-group-btn">
-                        <button class="btn btn-info" type="submit">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                        <a href="~/Product/Create" class="btn btn-primary" style="margin-left=5px">
+                <div class="col-sm-1" style="padding:0">
+                    <div class="input-group">
+                        <a href="~/Product/Create" class="btn btn-primary" style="padding-left: 11px; padding-right: 10px">
                             <i class="fa fa-plus"></i> Bổ sung
                         </a>
                     </div>
