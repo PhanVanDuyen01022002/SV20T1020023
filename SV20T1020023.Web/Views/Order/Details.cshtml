@@ -161,7 +161,7 @@
                                 <td class="text-center">@i.Quantity</td>
                                 <td class="text-right">@i.SalePrice</td>
                                 <td class="text-right">@i.TotalPrice</td>
-                                @if(status == 1 || status == 2)
+                                @if(status == 1 || (status == 2 && Model.Details.Count > 1))
                                 {
                                 <td class="text-right">
                                         <a href="~/Order/EditDetail/@i.OrderID?productId=@i.ProductID" class="btn btn-xs btn-primary btn-modal">
@@ -170,9 +170,17 @@
                                         <a href="~/Order/DeleteDetail/@i.OrderID?productId=@i.ProductID" class="btn btn-xs btn-danger" onclick="return confirm('Xóa mặt hàng này khỏi đơn hàng?')">
                                             <i class="fa fa-trash"></i>
                                         </a>
-                                    </td>
+                                </td>
                                 }
-                            </tr>
+                                else if(status == 2)
+                                {
+                                <td class="text-right">
+                                    <a href="~/Order/EditDetail/@i.OrderID?productId=@i.ProductID" class="btn btn-xs btn-primary btn-modal">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </td>
+                                }
+                        </tr>
                     }
                 </tbody>
                 <tfoot>

@@ -144,7 +144,6 @@ namespace SV20T1020023.Web.Controllers
         {
             try
             {
-
                 if (string.IsNullOrWhiteSpace(data.Description))
                     ModelState.AddModelError(nameof(data.Description), "Mô tả không được để trống");
 

@@ -15,7 +15,7 @@
                     <select class="form-control" name="@nameof(Model.CategoryID)">
                         <option value="">--Loại hàng--</option>
                         @{
-                            var categories = SV20T1020023.BusinessLayers.CommonDataService.ListOfCategorys(out var rowCount, Model.Page, Model.PageSize, Model.SearchValue);
+                            var categories = SV20T1020023.BusinessLayers.CommonDataService.ListOfCategorys("");
                             foreach (var item in categories)
                             {
                                 if (item.CategoryID == Model.CategoryID)
@@ -34,7 +34,7 @@
                     <select class="form-control" name="@nameof(Model.SupplierID)">
                         <option value="">--Nhà cung cấp--</option>
                         @{
-                            var suppliers = SV20T1020023.BusinessLayers.CommonDataService.ListOfSuppliers(out var RowCount, Model.Page, Model.PageSize, Model.SearchValue);
+                            var suppliers = SV20T1020023.BusinessLayers.CommonDataService.ListOfSuppliers("");
                             foreach (var item in suppliers)
                             {
                                 if (item.SupplierID == Model.SupplierID)

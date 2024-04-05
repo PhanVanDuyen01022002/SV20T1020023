@@ -23,20 +23,27 @@
                 <div class="col-lg-offset-2 col-sm-10">
                     <input type="hidden" name="@nameof(Model.Photo)" value="mac.png" />
                     <img id="Photo" src="~/images/products/@Model.Photo" class="img img-bordered" style="width:200px" />
+                    @Html.ValidationMessage(nameof(Model.Photo), new {style="color:#f00"})
+
                 </div>
+
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2">Mô tả ảnh:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="@nameof(Model.Description)" value="@Model.Description">
+                @Html.ValidationMessage(nameof(Model.Description), new {style="color:#f00"})
                 </div>
+
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2">Thứ tự hiển thị:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="@nameof(Model.DisplayOrder)" value="@Model.DisplayOrder">
+                    @Html.ValidationMessage(nameof(Model.DisplayOrder), new {style="color:#f00"})
+
                 </div>
             </div>
 
@@ -46,6 +53,7 @@
                         <label><input type="checkbox" value="true" name="IsHidden"  @if (Model.IsHidden){<text>checked</text>}>
                             Không hiển thị ảnh
                         </label>
+
                     </div>
                 </div>
             </div>

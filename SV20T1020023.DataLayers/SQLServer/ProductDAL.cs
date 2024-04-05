@@ -273,7 +273,8 @@ namespace SV20T1020023.DataLayers.SQLServer
             {
                 var sql = @"    select  *
                                 from    ProductAttributes
-                                where   ProductId = @ProductId";
+                                where   ProductId = @ProductId
+                                order by DisplayOrder";
                 var parameters = new
                 {
                     ProductId = productId
@@ -291,7 +292,8 @@ namespace SV20T1020023.DataLayers.SQLServer
             {
                 var sql = @"    select  *
                                 from    ProductPhotos
-                                where   ProductId = @ProductId";
+                                where   ProductId = @ProductId
+                                order by DisplayOrder";
                 var parameters = new
                 {
                     ProductId = productId
@@ -340,14 +342,13 @@ namespace SV20T1020023.DataLayers.SQLServer
             bool result = false;
             using (var connection = OpenConnection())
             {
-                var sql = @"begin
-                            update ProductAttributes 
-                            set ProductID = @productID,
-                                AttributeName = @attributeName,
-                                AttributeValue = @attributeValue,
-                                DisplayOrder = @displayOrder                                   
-                            where AttributeID = @attributeID
-                        end";
+                var sql = @"
+                                update ProductAttributes 
+                                set ProductID = @productID,
+                                    AttributeName = @attributeName,
+                                    AttributeValue = @attributeValue,
+                                    DisplayOrder = @displayOrder                                   
+                                where AttributeID = @attributeID";
                 var parameters = new
                 {
                     attributeID = data.AttributeId,
@@ -369,10 +370,10 @@ namespace SV20T1020023.DataLayers.SQLServer
             bool result = false;
             using (var connection = OpenConnection())
             {
-                var sql = @"    update ProductAttributes
-                                set ProductID = @ProductID
-                                    AttributeName = @AttributeName,
-                                    AttributeValue = @AttributeValue,
+                var sql = @"    update ProductPhotos
+                                set ProductID = @ProductID,
+                                    Photo = @Photo,
+                                    Description = @Description,
                                     DisplayOrder = @DisplayOrder,
                                     IsHidden = @IsHidden
                                 where PhotoId = @PhotoId";
@@ -380,8 +381,8 @@ namespace SV20T1020023.DataLayers.SQLServer
                 {
                     PhotoId = data.PhotoId,
                     ProductId = data.ProductId,
-                    AttributeName = data.Photo ?? "",
-                    AttributeValue = data.Description ?? "",
+                    Photo = data.Photo ?? "",
+                    Description = data.Description ?? "",
                     DisplayOrder = data.DisplayOrder,
                     IsHidden = data.IsHidden
                 };
